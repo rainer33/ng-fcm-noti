@@ -1,0 +1,26 @@
+<div class="blog-post">
+  <div class="comm-left">
+    <h4>관리자관리</h4>      
+  </div> 
+  <div class="comm-right">
+    <ul class="menu">
+      <li>
+        <p-dropdown [options]="conditions" [(ngModel)]= "searchField" [style]="{'width':'120px'}"></p-dropdown>        
+      </li>
+      <li><input type="text" [(ngModel)]="searchkey" style="width:97%"></li>
+      <li>
+        <button class="btn btn-info" (click)="onSearch()">조회</button>
+        <button class="btn btn-info" (click)="onReset()">초기화</button>
+        <button class="btn btn-info" (click)="onView()">등록</button>
+      </li>
+    </ul>
+  </div> 
+</div>
+<button></button> <!-- 이것을 제거하면 아래 등록버튼 오류 발생 -->
+<div class="blog-post">
+<p-dataTable [value]="users" (onRowClick)="onRowClick($event)">
+  <p-column field="userNo"        hidden="true"></p-column>
+  <p-column field="userName"      header="사용자명"></p-column>
+  <p-column field="userId"        header="사용자아이디"></p-column>
+</p-dataTable>
+</div>

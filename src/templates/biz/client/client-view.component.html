@@ -1,0 +1,107 @@
+<form  #dataForm="ngForm">
+  <div class="comm-left">
+    <h4>고객사정보</h4>
+  </div>
+  <div class="comm-right" > 
+    <button class="btn btn-info" (click)="onAdd()" *ngIf="!(clients.companySeqno > 0)" [disabled]="!dataForm.valid">등록</button> 
+    <button type="reset" class="btn btn-info">초기화</button>
+    <button class="btn btn-info" (click)="onUpdate()" *ngIf="clients.companySeqno > 0" [disabled]="!dataForm.valid">수정</button>
+    <button class="btn btn-info" (click)="onDelete()" *ngIf="clients.companySeqno > 0">삭제</button>    
+    <button class="btn btn-info" (click)="onList()">목록</button>
+  </div> 
+  <div class="blog-post">
+    <table class="input-group">
+      <colgroup>
+        <col style="width: 18%;">
+        <col style="width: 32%;">  
+        <col style="width: 18%;">
+        <col style="width: 22%;">    
+        <col style="width: 10%;">    
+      </colgroup>
+      <tbody>
+        <tr>
+          <th class="tacenter">고객사명</th>
+          <td>            
+            <input type="text" 
+              class=""
+              name="companyName"               
+              #companyName="ngModel" 
+              [(ngModel)] = "clients.companyName" 
+              required
+            >
+            <span *ngIf="!companyName.valid" style="color:red">{{msgCompanyName}}</span>
+          </td>        
+          <th class="tacenter">담당자명</th>
+          <td colspan="2">
+            <input type="text" 
+              class=""  
+              name="managerName"
+              #managerName="ngModel" 
+              [(ngModel)] = "clients.managerName" 
+            >              
+          </td>
+          <!-- <td></td> -->
+        </tr>
+        <tr>
+          <th class="tacenter">인증키</th>
+          <td colspan="4" *ngIf="!(clients.companySeqno > 0)">인증키는 등록 시 자동으로 발급됩니다.</td>
+          <td colspan=3 *ngIf="clients.companySeqno > 0">            
+            {{clients.companyAuthkey}}
+          </td>
+          <td *ngIf="clients.companySeqno > 0">
+            {{clients.modDt}}         
+          </td>
+        </tr>
+        <tr>
+          <th class="tacenter">담당자연락처</th>
+          <td>            
+            <input type="text"             
+              name="managerTelephone"               
+              #managerTelephone="ngModel" 
+              [(ngModel)] = "clients.managerTelephone"  
+              pattern="[0-9+-]*"          
+            >
+            <div [hidden]="!managerTelephone.hasError('pattern')" style="color: red">Mobile numberr should be only numbers</div>           
+          </td>        
+          <th class="tacenter">담당자이메일</th>
+          <td colspan="2">
+            <input type="text"             
+              name="managerEmail"
+              #managerEmail="ngModel" 
+              [(ngModel)] = "clients.managerEmail" 
+              pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$"
+            >
+            <div [hidden]="!managerEmail.hasError('pattern')" style="color: red">Email format should be 
+              <small><b>joe@abc.com</b></small>
+            </div>              
+          </td>
+          <!-- <td></td> -->
+        </tr>
+        <tr *ngIf="clients.companySeqno > 0">
+          <th class="tacenter">수정자</th>
+          <td>            
+            <!-- {{clients.modUser}} -->
+            {{clients.modUserName}}
+          </td>        
+          <th class="tacenter">수정일</th>
+          <td colspan="2">
+            {{clients.modDt}}         
+          </td>
+          <!-- <td></td> -->
+        </tr>
+        <tr>
+          <th class="tacenter">설명</th>
+          <td colspan=4>            
+            <input type="textarea" 
+            class="sm-textarea" 
+            name="companyDesc"
+            #companyDesc="ngModel" 
+            [(ngModel)] = "clients.companyDesc" 
+          >     
+          </td>  
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <p-confirmDialog></p-confirmDialog>     
+</form>

@@ -1,0 +1,90 @@
+<form  #dataForm="ngForm">
+  <div class="comm-left">
+    <h4>접근권한 정보</h4>
+  </div>
+  <div class="comm-right" > 
+    <button class="btn btn-info" (click)="onAdd()" *ngIf="!(role.rolegroupId > 0)" [disabled]="!dataForm.valid">등록</button> 
+    <button type="reset" class="btn btn-info">초기화</button>
+    <button class="btn btn-info" (click)="onUpdate()" *ngIf="role.rolegroupId > 0" [disabled]="!dataForm.valid">수정</button>
+    <button class="btn btn-info" (click)="onDelete()" *ngIf="role.rolegroupId > 0">삭제</button>    
+    <button class="btn btn-info" (click)="onList()">목록</button>
+  </div> 
+  <div class="blog-post">
+    <table class="input-group">
+      <colgroup>
+        <col style="width: 20%;">
+        <col style="width: 80%;">        
+      </colgroup>
+      <tbody>
+        <tr>
+          <th class="tacenter">역할명</th>
+            <td>            
+            <input type="text" 
+              class=""
+              name="rolegroupName"               
+              #rolegroupName="ngModel" 
+              [(ngModel)] = "role.rolegroupName" 
+              required
+            >
+            <span *ngIf="!rolegroupName.valid" style="color:red">{{msgRolegroupName}}</span>
+          </td>
+        </tr>
+        <tr> 
+          <th class="tacenter">역할설명</th>
+            <td>
+              <input type="textarea" 
+                class="sm-textarea"
+                name="rolegroupDesc"
+                #rolegroupDesc="ngModel" 
+                [(ngModel)] = "role.rolegroupDesc" 
+              >              
+            </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</form>
+<p-tabView *ngIf="role.rolegroupId > 0" >
+  <p-tabPanel header="사용자별접근권한">
+    <div class="blog-post">
+      <div class="comm-right" > 
+        <button class="btn btn-info" (click)="onUpdateRoleUser()" *ngIf="role.rolegroupId > 0" [disabled]="!dataForm.valid">등록</button>
+        <button class="btn btn-info" (click)="onDeleteRoleUser()" *ngIf="role.rolegroupId > 0">삭제</button> 
+      </div>
+      <button></button>   
+      <p-dataTable [value]="users" (onRowClick)="onRowClick($event)" [(selection)]="xtedRoleusers">
+        <p-column field="userNo"    hidden="true"></p-column>
+        <p-column selectionMode="multiple" ></p-column> 
+        <p-column field="userName"   [style]="{'width':'30%'}" header="사용자명"></p-column>
+        <p-column field="userId"     [style]="{'width':'70%'}" header="사용자아이디"></p-column>      
+      </p-dataTable>
+    </div>
+  </p-tabPanel>
+  <p-tabPanel header="메뉴별접근권한">
+  <div class="blog-post">    
+  	<div class="comm-right" > 
+       <button class="btn btn-info" (click)="onUpdateRoleMenu()">설정</button>       
+     </div>  
+     <button></button>  
+    <p-dataTable [value]="roleauthlist" rowGroupMode="subheader" groupField="topmenu" expandableRowGroups="true"
+      [sortableRowGroup]="false"> 
+    <ng-template pTemplate="rowgroupheader" let-rowData>{{rowData['topmenu']}}</ng-template>    
+    <p-column field="menuName" header="메뉴명"></p-column>
+    <p-column field="authRead" header="읽기">
+      <ng-template let-col let-menu="rowData" pTemplate="checkbox">
+        <input type="checkbox" [(ngModel)]="menu.authRead" #menu.authRead="ngModel" (click)="setChanged(menu)">
+      </ng-template>
+    </p-column>
+    <p-column field="authWrite" header="쓰기">
+      <ng-template let-col let-menu="rowData" pTemplate="checkbox">
+        <input type="checkbox" [(ngModel)]="menu.authWrite" #menu.authWrite="ngModel" (click)="setChanged(menu)">
+      </ng-template>
+    </p-column>    
+  </p-dataTable> 
+  </div>
+  </p-tabPanel>  
+</p-tabView>
+<p-confirmDialog></p-confirmDialog>   
+<p-dialog [(visible)]="display" [width]="650" [height]="400" modal="modal" header="사용자별접근권한등록" [closable]="false">
+  <roleuser-modal (addMenu)="onAddChildMenu($event)" (close)="onClose()"></roleuser-modal>
+</p-dialog> 

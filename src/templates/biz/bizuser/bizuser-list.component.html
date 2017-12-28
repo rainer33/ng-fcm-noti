@@ -1,0 +1,16 @@
+<div class="blog-post">
+  <div class="comm-left">
+    <h4>업무이용자관리</h4>      
+  </div> 
+  <div class="comm-right">
+    <button class="btn btn-info" (click)="onView()">등록</button>
+  </div> 
+</div>
+<button></button> <!-- 이것을 제거하면 아래 등록버튼 오류 발생 -->
+<div class="blog-post">  
+  <p-dataTable [value]="bizusers" (onRowClick)="onRowClick($event)">
+    <p-column field="svcUserSeqno"  hidden="true"></p-column>    
+    <p-column field="svcUserKey" styleClass="dt-width-30"  header="이용자KEY"></p-column>   
+    <p-column field="platformTypeName" styleClass="dt-width-70"  header="OS종류"></p-column> 
+  </p-dataTable>
+</div>

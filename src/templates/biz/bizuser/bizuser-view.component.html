@@ -1,0 +1,46 @@
+<form  #dataForm="ngForm">
+  <div class="comm-left">
+    <h4>업무이용자정보</h4>
+  </div>
+  <div class="comm-right" > 
+    <button class="btn btn-info" (click)="onAdd()" *ngIf="!(bizuser.svcUserSeqno > 0)" [disabled]="!dataForm.valid">등록</button> 
+    <button type="reset" class="btn btn-info">초기화</button>
+    <button class="btn btn-info" (click)="onUpdate()" *ngIf="bizuser.svcUserSeqno > 0" [disabled]="!dataForm.valid">수정</button>
+    <button class="btn btn-info" (click)="onDelete()" *ngIf="bizuser.svcUserSeqno > 0">삭제</button>    
+    <button class="btn btn-info" (click)="onList()">목록</button>
+  </div> 
+  <div class="blog-post">
+    <table class="input-group">
+      <colgroup>
+        <col style="width: 20%;">
+        <col style="width: 60%;"> 
+        <col style="width: 20%;">        
+      </colgroup>
+      <tbody>
+        <tr>
+          <th class="tacenter">이용자KEY</th>
+            <td>            
+            <input type="text" 
+              class=""
+              name = "svcUserKey"               
+              #svcUserKey = "ngModel" 
+              [(ngModel)] = "bizuser.svcUserKey" 
+              required
+            >
+            <span *ngIf="!svcUserKey.valid" style="color:red">{{msgSvcUserKey}}</span>
+          </td>
+          <td>
+            <button class="btn btn-info" (click)="onCheckId()" [disabled]="bizuser.svcUserSeqno > 0">{{hButtonDoubleCheck}}</button>
+          </td>          
+        </tr>
+        <tr> 
+          <th class="tacenter">OS종류</th>
+            <td colspan = "2">
+				<p-dropdown [options]="platformTypes" name = "platformType" [(ngModel)]= "bizuser.platformType" [style]="{'width':'120px'}"></p-dropdown>  
+            </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <p-confirmDialog></p-confirmDialog>      
+</form>

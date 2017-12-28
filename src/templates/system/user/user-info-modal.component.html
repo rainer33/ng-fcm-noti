@@ -1,0 +1,62 @@
+<div class="comm-right">
+  <button type="button" class="btn btn-info" (click)="onUpdate()" [disabled]="!dataForm.valid" >수정</button>
+  <button type="button" class="btn btn-info" (click)="onClose()">닫기</button>
+</div>
+<form #dataForm="ngForm">
+<table class="input-group">
+  <colgroup>
+    <col style="width: 40%;">
+    <col style="width: 60%;">
+  </colgroup>
+  <tbody>
+    <tr>         
+      <th class="tacenter">사용자명</th>
+      <td align="left">{{userNamePop}}
+      </td>     
+    </tr> 
+    <tr>
+      <th class="tacenter">사용자ID</th>
+      <td align="left">{{userIdPop}}
+      </td>      
+    </tr>
+    <tr>
+      <th class="tacenter">비밀번호</th>
+      <td align="left">
+        <input type="password"
+          pPassword 
+          class="input AXInput " 
+          style="width: 90%;"
+          name="userPassword"
+          #userPassword="ngModel" 
+          [(ngModel)] = "user.userPassword" 
+          required validateEqual="passwordCheck" reverse="true"
+        >
+	  <span [hidden]="userPassword.valid || (userPassword.pristine)" style="color:red">
+	      {{msgUserPassword}}
+	  </span>            
+      </td>
+    </tr>
+    <tr>      
+      <th class="tacenter">비밀번호확인</th>
+      <td colspan = "2">
+        <input type="password" 
+          class="input AXInput " 
+          style="width: 90%;" 
+          name="passwordCheck"
+          #passwordCheck="ngModel" 
+          [(ngModel)] = "user.passwordCheck" 
+          required [validateEquals]="userPassword"
+        >
+	  <span [hidden]="passwordCheck.valid || (passwordCheck.pristine)" style="color:red">
+	      {{msgNotMatch}}
+	  </span>             
+      </td>
+    </tr>    
+  </tbody>
+</table>
+</form>
+
+
+
+
+

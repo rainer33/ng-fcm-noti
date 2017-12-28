@@ -1,0 +1,41 @@
+<div *ngIf="userDetailsService.isLoggedIn"> 
+  <div class="top-bar">
+      <div class="top-bar-left">
+      	<img src="../assets/Futuresoft_NewLogo_S.png">
+		<sub>모바일 푸시 메시징 시스템</sub><br><br>
+      </div>
+      <div class="top-bar-right">        
+        <ul class="menu">
+          <li class="menu-text">안녕하세요 {{userName}}님 </li>           
+          <li><button type="button" class="btn btn-link" (click)="onUpdateUser(userName,userId)">정보수정</button></li> 
+          <li><button type="button" class="btn btn-link" (click)="userDetailsService.isLoggedIn=false">로그아웃</button></li>
+        </ul>    
+      </div>
+  </div>
+  <div class="top-bar">
+      <div class="top-bar-left">
+		<p-menubar [model]="menuitems"></p-menubar>
+      </div>
+  </div>
+  <div class="callout">     
+    <div class="row column text-center">     
+      <p-breadcrumb [model]="items" [home]="home"></p-breadcrumb>
+    </div>
+  </div>
+  <div class="row">
+    <router-outlet></router-outlet>    
+  </div>
+<div style="margin-top:200px"></div>
+  <div class="footer-bar" >
+    <div class="row column text-center">
+      Copyright(c) 2018 Futuresoft Co., Ltd. All rights reserved.  
+    </div>    
+  </div>
+</div> 
+<app-login *ngIf="!userDetailsService.isLoggedIn" (setMenu)="setMenu($event)"></app-login> 
+<p-dialog header="{{msgBoxService.title}}" [(visible)]="msgBoxService.display"  modal="modal" [width]="300">
+    {{msgBoxService.message}}
+</p-dialog>
+<p-dialog [(visible)]="userinfoDisplay" [width]="400" [height]="450" modal="modal" header="정보수정" [closable]="false">
+   <user-info-modal [userIdPop]="userId" [userNamePop]="userName" (updateUser)="onUpdateUserInfo($event)" (close)="onClose()"></user-info-modal>
+</p-dialog> 

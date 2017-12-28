@@ -1,0 +1,24 @@
+<div class="blog-post">  
+  <div class="comm-right">
+    <ul class="menu">
+      <li>
+        <p-dropdown [options]="searchFields"  [(ngModel)]="user.searchField" [style]="{'width':'120px'}"></p-dropdown>        
+      </li>
+      <li><input type="text" [(ngModel)]="user.searchKey" style="width:97%"></li>
+      <li>
+        <button class="btn btn-info" (click)="onSearch()">조회</button>        
+        <button class="btn btn-info" (click)="onAdd()">등록</button>
+        <button class="btn btn-info" (click)="onClose()">닫기</button>
+      </li>
+    </ul>
+  </div> 
+  <button></button> <!-- 없으면 오류난다.  -->
+</div>
+<div class="blog-post">
+  <p-dataTable [value]="users" [(selection)]="xtedRoleusers">
+  <p-column field="userNo"        hidden="true"></p-column>
+  <p-column selectionMode="multiple" ></p-column> 
+  <p-column field="userName" [style]="{'width':'30%'}"  header="사용자명"></p-column>
+  <p-column field="userId" [style]="{'width':'70%'}"  header="사용자아이디"></p-column> 
+</p-dataTable>
+</div>

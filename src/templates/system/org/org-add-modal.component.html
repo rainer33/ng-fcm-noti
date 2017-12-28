@@ -1,0 +1,26 @@
+<div class="comm-right">
+  <button type="button" class="btn btn-info" (click)="onAdd()" [disabled]="!dataForm.valid" >등록</button>
+  <button type="button" class="btn btn-info" (click)="onClose()">닫기</button>
+</div>
+<form #dataForm="ngForm">
+<table class="input-group">
+  <colgroup>
+    <col style="width: 30%;">
+    <col style="width: 70%;">
+  </colgroup>
+  <tbody>
+    <tr>         
+      <th class="tacenter">조직명</th>
+      <td>
+        <input type="text" name="orgName"  required [(ngModel)]="org.orgName" #orgName="ngModel"> 
+        <span *ngIf="!orgName.valid" style="color:red">{{msgOrgName}}</span>
+      </td>     
+    </tr>     
+  </tbody>
+</table>
+</form>
+
+
+
+
+

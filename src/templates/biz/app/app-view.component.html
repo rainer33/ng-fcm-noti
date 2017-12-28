@@ -1,0 +1,115 @@
+<form  #appForm="ngForm">
+  <div class="comm-left">
+    <h4>APP 상세정보</h4>
+  </div>
+  <div class="comm-right" > 
+    <button class="btn btn-info" (click)="onAdd()" *ngIf="!(app.appSeqno > 0)" [disabled]="!appForm.valid || !checkYN">등록</button> 
+    <button type="reset" class="btn btn-info">초기화</button>
+    <button class="btn btn-info" (click)="onUpdate()" *ngIf="app.appSeqno > 0" [disabled]="!appForm.valid">수정</button>
+    <button class="btn btn-info" (click)="onDelete()" *ngIf="app.appSeqno > 0">삭제</button>    
+    <button class="btn btn-info" (click)="onList()">목록</button>
+  </div>   
+  <div class="blog-post">
+    <table class="input-group">
+      <colgroup>
+        <col style="width: 18%;">
+        <col style="width: 32%;">  
+        <col style="width: 18%;">
+        <col style="width: 22%;">    
+        <col style="width: 10%;"> 
+      </colgroup>
+      <tbody>
+        <tr>
+          <th>APP ID</th>
+          <td colspan="3" *ngIf="!(app.appSeqno > 0)">
+            <input type="text" class="input AXInput " name="appId" #appId="ngModel" [(ngModel)]="app.appId" required/>
+            <span [hidden]="appId.valid" style="color:red">{{msgAppId}}</span>
+          </td>
+          <td colspan="3" *ngIf="app.appSeqno > 0">
+              {{app.appId}}
+              <input type="hidden" class="input AXInput " name="appId" #appId="ngModel" [(ngModel)]="app.appId"/>
+          </td>
+          <td>
+            <button class="btn btn-info" (click)="onCheckId()" [disabled]="app.appSeqno > 0">{{hButtonDoubleCheck}}</button>
+          </td>
+        </tr>
+        <tr>
+          <th>
+              앱 이름
+          </th>
+          <td colspan="4" *ngIf="!(app.appSeqno > 0)">
+            <input type="text" class="input AXInput " name="appName" #appName="ngModel" [(ngModel)]="app.appName" required/>
+            <span [hidden]="appName.valid" style="color:red">{{msgAppName}}</span>
+          </td>
+          <td *ngIf="app.appSeqno > 0">
+            <input type="text" class="input AXInput " name="appName" #appName="ngModel" [(ngModel)]="app.appName"/>
+            <span [hidden]="appName.valid" style="color:red">{{msgAppName}}</span>
+          </td>
+          <th *ngIf="app.appSeqno > 0">
+            고객사
+          </th>
+          <td colspan="2" *ngIf="app.appSeqno > 0">
+            <input type="hidden" class="input AXInput " name="companySeqno" #companySeqno="ngModel" [(ngModel)]="app.companyName"/>
+            <input type="text" class="input AXInput " name="companyName" #companyName="ngModel" [(ngModel)]="app.companyName"/>
+          </td>
+        </tr>
+        <tr>
+          <th>
+            OS 종류
+          </th>
+          <td>
+            <p-dropdown [options]="platformTypes" [style]="{'width':'95%'}" name="platformType" #platformType="ngModel" [(ngModel)]= "app.platformType" (ngModelChange)="changedPlatformType($event)"></p-dropdown>
+          </td>
+          <th>푸시 API 타입</th>
+          <td colspan="2">
+            <p-dropdown [options]="pushApiTypes" [style]="{'width':'95%'}" name="pushApiType" #pushApiType="ngModel" [(ngModel)]= "app.pushApiType"></p-dropdown>
+          </td>
+        </tr>
+        <tr *ngIf="app.appSeqno > 0 && app.platformType == 'A'">
+          <th>
+            Push API KEY
+          </th>
+          <td colspan="4">
+              <textarea class="input AXTextarea" style="overflow:auto;height:50px; width: 97%; " name="pushApiAuthEnc" #pushApiAuthEnc="ngModel" [(ngModel)]="app.pushApiAuthEnc">{{app.pushApiAuthEnc}}</textarea>
+          </td>
+        </tr>
+        <tr *ngIf="app.appSeqno > 0 && app.platformType == 'I'">
+          <th>
+            인증변경 여부
+          </th>
+          <td>
+              변경/유지
+          </td>
+          <th>PUSH API AUTH</th>
+          <td colspan="2">
+              <input disabled type="text" class="input AXInput " style="width: 70%;" name="pushApiAuth" #pushApiAuth="ngModel" [(ngModel)]="app.pushApiAuth"/>
+          </td>
+        </tr>
+        <tr *ngIf="app.appSeqno > 0 && app.platformType == 'I'">
+          <th>
+            인증서 파일
+          </th>
+          <td id="certFile">
+            <div id="textFile" [style.visibility]="(app.pushApiCertFileExistYn =='N' || app.pushApiAuthChangeYn =='Y') ? 'hidden' : 'visible'">
+              인증서파일 등록완료
+            </div>
+            <div id="fileArea" [style.visibility]="(app.pushApiCertFileExistYn =='Y' || app.pushApiAuthChangeYn =='N') ? 'hidden' : 'visible'">
+              <p-fileUpload mode="basic" name="demo[]" url="./upload.php" accept="*/*" maxFileSize="1000000" (onUpload)="onBasicUpload($event)"></p-fileUpload>
+            </div>
+          </td>
+          <th class="expiry" [style.visibility]="(app.pushApiAuthChangeYn =='Y') ? 'hidden' : 'visible'">인증서 만료일</th>
+          <td class="expiry" colspan="2" [style.visibility]="(app.pushApiAuthChangeYn =='Y') ? 'hidden' : 'visible'">
+            {{app.expiryDate}}
+          </td>
+        </tr>
+        <tr>
+          <th>앱 설명</th>
+          <td colspan="4">
+            <textarea class="input AXTextarea" style="overflow:auto;height:50px; width: 97%; " name="remark" #remark="ngModel" [(ngModel)]="app.remark">{{app.remark}}</textarea>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <p-confirmDialog></p-confirmDialog>
+</form>

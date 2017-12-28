@@ -1,0 +1,17 @@
+<div class="blog-post">
+  <div class="comm-left">
+    <h4>고객사관리</h4>      
+  </div> 
+  <div class="comm-right">
+    <button class="btn btn-info" (click)="onView()">등록</button>
+  </div> 
+</div>
+<button></button> <!-- 이것을 제거하면 아래 등록버튼 오류 발생 -->
+<div class="blog-post">  
+  <p-dataTable [value]="clients" (onRowClick)="onRowClick($event)">
+    <p-column field="companySeqno"        hidden="true"></p-column>    
+    <p-column field="companyName" styleClass="dt-width-20"  header="고객사명"></p-column>   
+    <p-column field="companyDesc" styleClass="dt-width-50"  header="고객사설명"></p-column>  
+    <p-column field="managerEmail" styleClass="dt-width-30" header="이메일"></p-column> 
+  </p-dataTable>
+</div>

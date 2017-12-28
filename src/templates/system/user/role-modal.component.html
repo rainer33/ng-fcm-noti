@@ -1,0 +1,19 @@
+<div class="blog-post">  
+  <div class="comm-right">
+    <ul class="menu">
+      <li>
+        <button class="btn btn-info" (click)="onAdd()">등록</button>
+        <button class="btn btn-info" (click)="onClose()">닫기</button>
+      </li>
+    </ul>
+  </div> 
+  <button></button> <!-- 없으면 오류난다.  -->
+</div>
+<div class="blog-post">
+  <p-dataTable [value]="roles" [(selection)]="xtedRoleusers">
+  <p-column field="rolegroupId"        hidden="true"></p-column>
+  <p-column selectionMode="multiple" ></p-column> 
+  <p-column field="rolegroupName" [style]="{'width':'30%'}"  header="역할명"></p-column>
+  <p-column field="rolegroupDesc" [style]="{'width':'70%'}"  header="역할설명"></p-column> 
+</p-dataTable>
+</div>

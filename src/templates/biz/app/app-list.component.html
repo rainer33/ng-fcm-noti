@@ -1,0 +1,52 @@
+<div class="blog-post">
+  <div class="comm-left">
+    <h4>APP 정보관리</h4>      
+  </div> 
+  <div class="comm-right">
+    <!-- <ul class="menu">
+      <li>
+        <p-dropdown [options]="conditions" [(ngModel)]= "searchField" [style]="{'width':'120px'}"></p-dropdown>        
+      </li>
+      <li><input type="text" [(ngModel)]="searchkey" style="width:97%"></li>
+      <li>
+        <button class="btn btn-info" (click)="onSearch()">조회</button>
+        <button class="btn btn-info" (click)="onReset()">초기화</button>
+        <button class="btn btn-info" (click)="onView()">등록</button>
+      </li>
+    </ul> -->
+    <button class="btn btn-info" (click)="onSearch()">조회</button>
+    <button class="btn btn-info" (click)="onReset()">초기화</button>
+    <button class="btn btn-info" (click)="onView()">등록</button>
+  </div>
+  <div>    
+    <table class="input-group">
+        <colgroup>
+          <col style="width:  20%;">
+          <col style="width:  30%;">
+          <col style="width:  20%;">
+          <col style="width:  30%;">
+        </colgroup>
+      <tr>
+        <th>OS 종류</th>  
+        <td><p-dropdown [options]="platformTypes" [(ngModel)]= "platformType" [style]="{'width':'95%'}"></p-dropdown></td>
+        <th><p-dropdown [options]="conditions" [(ngModel)]= "searchField" [style]="{'width':'120px'}"></p-dropdown></th>  
+        <td>
+          <input type="text" [(ngModel)]="searchkey" style="width:50%">
+          <!-- <button class="btn btn-info" (click)="onSearch()">조회</button>
+          <button class="btn btn-info" (click)="onReset()">초기화</button> -->
+        </td>
+      </tr>
+    </table>  
+  </div> 
+</div>
+<button></button> <!-- 이것을 제거하면 아래 등록버튼 오류 발생 -->
+<div class="blog-post">  
+  <p-dataTable [value]="apps" (onRowClick)="onRowClick($event)">
+    <p-column field="companySeqno"    hidden="true"></p-column>    
+    <p-column field="appId"           header="APP ID"></p-column>
+    <p-column field="appName"         header="APP 이름"></p-column>   
+    <p-column field="companyName"     header="고객사명"></p-column>  
+    <p-column field="platformTypeName"    header="OS 종류"></p-column>  
+  </p-dataTable>
+</div>
+

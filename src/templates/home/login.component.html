@@ -1,0 +1,70 @@
+<div class="container">
+	<table width="100%" border="0" cellspacing="0" cellpadding="0" style="margin-top: 20px;">
+		<tr>
+				<div class="ui-g-12">
+						<div style="height:60px; background-color:lightgrey">
+							<img src="../assets/Futuresoft_NewLogo_S.png">
+							<sub>모바일 푸시 메시징 시스템</sub>
+						</div>							
+					</div>
+			<td height="5" bgcolor="#ab91ee"></td>
+		</tr>
+	</table>
+	<table width="100%" border="0" cellspacing="0" cellpadding="0">
+		<tr>
+		<td height="400" align="center" valign="top" style="padding-top:150px;">
+			<table width="50%" border="0" align="center" cellpadding="0" cellspacing="0">
+				<tr>
+				<td height="60" align="center" valign="bottom">
+					<span style="font-size: 45px; color: #ab91ee;">
+						<b>
+							MPush v2.0
+				</b>
+				</span>
+				</td>
+				</tr>
+				<tr>
+				<!--  <td height="100" align="center" valign="middle"><img src="./txt02.png" width="172" height="44" /></td> -->
+				<!-- <td><img src="./../../images/txt02.png"></td> -->
+				<td></td>
+				</tr>
+				<tr>
+				<td height="1" bgcolor="#737373"></td>
+				</tr>
+				<tr>
+				<td align="center" valign="top" style="padding-top:15px; padding-bottom:15px;"> 
+				<form >
+						<div class="ui-g">
+							<div class="ui-g-8 ui-g-nopad">
+								<div class="ui-g">											
+									<div class="ui-g-12">
+										<input style="padding-left: 3px; " name="userId" type="text" placeholder=" 아이디"  [(ngModel)]="user.userId"/>
+									</div>
+									<div class="ui-g-12">
+										<input style="padding-left: 3px; " name="userPassword" type="password" placeholder=" 비밀번호"  [(ngModel)]="user.userPassword"/>
+									</div>
+								</div>
+							</div>
+							<div class="ui-g-4">
+								<button class="btn btn-info" (click)="login()"><br/><h5>로그인</h5><br/></button>
+							</div>
+							<div>
+								<input name="isSave" id="isSave" type="checkbox" [checked]="false" (change)="onClick()" [(ngModel)]="isSave">
+								<label for="isSave">ID 저장</label>
+							</div>
+						</div>
+				</form>
+				</td>
+				</tr>
+			</table> 
+		</tr>
+	</table>
+		<table width="100%" border="0" cellspacing="0" cellpadding="0">
+		<tr>
+		<td height="2" bgcolor="#a6a6a6"></td>
+		</tr>
+		<tr>
+		<td height="50" align="center">Copyright(c) 2018 Futuresoft Co., Ltd. All rights reserved.</td>
+		</tr>
+	</table>	
+</div>

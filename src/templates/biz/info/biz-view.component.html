@@ -1,0 +1,66 @@
+<form  #bizForm="ngForm">
+  <div class="comm-left">
+    <h4>업무정보</h4>
+  </div>
+  <div class="comm-right" > 
+    <button class="btn btn-info" (click)="onAdd()" *ngIf="!(bizinfo.svcSeqno > 0)" [disabled]="!bizForm.valid">등록</button> 
+    <button type="reset" class="btn btn-info">초기화</button>
+    <button class="btn btn-info" (click)="onUpdate()" *ngIf="bizinfo.svcSeqno > 0" [disabled]="!bizForm.valid">수정</button>
+    <button class="btn btn-info" (click)="onDelete()" *ngIf="bizinfo.svcSeqno > 0">삭제</button>    
+    <button class="btn btn-info" (click)="onList()">목록</button>
+  </div>   
+  <div class="blog-post">
+    <table class="input-group">
+      <colgroup>
+        <col style="width: 15%;">
+        <col style="width: 35%;">
+        <col style="width: 15%;">
+        <col style="width: 30%;">
+        <col style="width: 5%;">
+      </colgroup>
+      <tbody>
+        <tr>
+          <th>서비스명</th>
+          <td>
+            <input type="text" 
+              class="input AXInput " 
+              style="width: 70%;" 
+              name="svcName"
+              #svcName="ngModel" 
+              [(ngModel)] = "bizinfo.svcName" 
+              required
+              maxlength="200"
+            >
+            <span [hidden]="svcName.valid" style="color:red">{{msgSvcName}}</span>
+          </td>
+          <th>서비스코드</th>
+          <td *ngIf="!(bizinfo.svcSeqno > 0)" colspan="2">
+                     자동발급
+          </td>
+          <td *ngIf="bizinfo.svcSeqno > 0">            
+            <input type="text" 
+              class="input AXInput " 
+              style="width: 81%;" 
+              name="svcCode"
+              #svcCode="ngModel" 
+              [(ngModel)] = "bizinfo.svcCode" 
+              required
+              maxlength="200"
+            >
+            <span [hidden]="svcCode.valid" style="color:red">{{msgSvcCode}}</span>
+          </td>
+          <td *ngIf="bizinfo.svcSeqno > 0">
+              <button class="btn btn-info" (click)="onCheckId()">중복확인</button>
+          </td>  
+        </tr>
+        <tr *ngIf="bizinfo.svcSeqno > 0">
+          <th>수정자</th>
+          <td>{{bizinfo.modUserName}}</td>        
+          <th>수정일</th>
+          <td colspan = "2">{{bizinfo.modDt}}</td>
+        </tr>
+      </tbody>
+    </table>
+    </div>
+    <p-confirmDialog></p-confirmDialog>    
+</form>

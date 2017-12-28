@@ -1,0 +1,40 @@
+<form  #dataForm="ngForm">
+    <div class="comm-left">
+        <h4>PUSH 정보</h4>
+    </div>
+    <div class="comm-right" > 
+        <button class="btn btn-info" (click)="onSend()">전송</button>
+    </div>
+    <div class="blog-post">
+        <table class="input-group">
+            <colgroup>
+                <col style="width: 30%">
+                <col style="width: 70%">
+            </colgroup>
+            <tbody>
+                <tr>
+                    <th>제목</th>
+                    <td><input type="text" class="input AXInput " style="width: 70%;" name="title" #title="ngModel" [(ngModel)]="sendMsg.title"></td>
+                </tr>
+                <tr>
+                    <th>내용</th>
+                    <td><input type="text" class="input AXInput " style="width: 70%;" name="body" #body="ngModel" [(ngModel)]="sendMsg.body"></td>
+                </tr>
+                <tr>
+                    <th>URL</th>
+                    <td><input type="text" class="input AXInput " style="width: 70%;" name="click_action" #click_action="ngModel" [(ngModel)]="sendMsg.click_action"></td>
+                </tr>
+                <tr>
+                    <th>Token</th>
+                    <td><input type="text" class="input AXInput " style="width: 70%;" name="to" #to="ngModel" [(ngModel)]="sendMsg.to"></td>
+                </tr>
+                <tr>
+                    <th>Authorization</th>
+                    <td>
+                        <input type="text" class="input AXInput " style="width: 70%;" name="authorization" #authorization="ngModel" [(ngModel)]="sendMsg.authorization">
+                    </td>
+                </tr>
+            </tbody>               
+        </table>
+    </div>
+</form>

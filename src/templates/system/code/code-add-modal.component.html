@@ -1,0 +1,42 @@
+<div class="comm-left">      
+  <h4>코드정보</h4> 
+</div> 
+<div class="comm-right">      
+  <button class="btn btn-info" (click)="onAdd()" [disabled]="!dataForm.valid">등록</button>
+  <button class="btn btn-info" (click)="onClose()">닫기</button>
+</div>  
+<form #dataForm="ngForm">
+  <table class="input-group">
+    <colgroup>
+      <col style="width: 30%;">
+      <col style="width: 70%;">             
+    </colgroup>
+    <tbody>      
+      <tr>         
+        <th class="tacenter">코드명</th>
+        <td>
+          <input type="text" name="codeName" [(ngModel)]="code.codeName" required #codeName="ngModel" >  
+          <span *ngIf="!codeName.valid" style="color:red">{{msgCodeName}}</span>          
+        </td>        
+      </tr>
+      <tr>         
+        <th class="tacenter">코드구분</th>
+        <td >
+          <p-selectButton [options]="codeTypes" [(ngModel)]="code.codeType" name="codeType"></p-selectButton>     
+        </td>        
+      </tr>  
+      <tr *ngIf="code.codeType=='V'">
+        <th class="tacenter">코드값</th>
+        <td>
+          <input type="text" name="codeValue" [(ngModel)]="code.codeValue" required #codeValue="ngModel">
+          <span *ngIf="!codeValue.valid" style="color:red">{{msgCodeValue}}</span>  
+        </td>        
+      </tr>
+    </tbody>
+  </table>
+</form>
+
+
+
+
+

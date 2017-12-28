@@ -1,0 +1,47 @@
+<div class="ui-g">			
+	<div class="ui-g-12 ui-md-12 ui-g-nopad">
+		<div class="ui-g-12">
+			<div style="height:60px; background-color:lightgrey">
+				<img src="../images/Futuresoft_NewLogo_S.png">
+				<sub>모바일 푸시 메시징 시스템</sub>
+			</div>							
+		</div>
+		<div class="ui-g-12 ui-g-nopad">
+			<div class="ui-g">
+				<div class="ui-g-12 ui-md-4"></div>
+				<div class="ui-g-12 ui-md-4">
+					<div style="height:80px;  vertical-align:bottom; margin-top:100px" class="tacenter">
+						<span style="font-size: 45px; color: #ab91ee; padding-left: 20px; ">
+							<b>MPush v2.0</b>
+						</span>
+					</div>							
+					<div class="ui-g">
+						<div class="ui-g-8 ui-g-nopad">
+							<div class="ui-g">											
+								<div class="ui-g-12">
+									<input style="padding-left: 3px; " name="userId" type="text" placeholder=" 아이디" [(ngModel)]="user.userId" />
+								</div>
+								<div class="ui-g-12">
+									<input style="padding-left: 3px; " name="userPassword" type="password" placeholder=" 비밀번호" [(ngModel)]="user.userPassword" />
+								</div>
+							</div>
+						</div>
+						<div class="ui-g-4">
+							<button class="btn btn-info" (click)="login()"><br/><h5>로그인</h5><br/></button>
+						</div>
+						<div>
+							<input name="isSave" id="isSave" type="checkbox" [checked]="false" (change)="onClick()" [(ngModel)]="isSave">
+							<label for="isSave">ID 저장</label>
+						</div>
+					</div>
+				</div>
+				<div class="ui-g-12 ui-md-4"></div>
+			</div>
+		</div>
+		<div class="ui-g-12">
+			<div style="height:40px; text-align:center; background-color:lightgrey; margin-top:200px">
+					Copyright(c) 2018 Futuresoft Co., Ltd. All rights reserved.
+			</div>
+		</div>
+	</div>
+</div>

@@ -1,0 +1,33 @@
+<div class="comm-right">
+  <button type="button" class="btn btn-info" (click)="onAdd()" [disabled]="!dataForm.valid" >등록</button>
+  <button type="button" class="btn btn-info" (click)="onClose()">닫기</button>
+</div>
+<form #dataForm="ngForm">
+<table class="input-group">
+  <colgroup>
+    <col style="width: 30%;">
+    <col style="width: 70%;">
+  </colgroup>
+  <tbody>
+    <tr>         
+      <th>메뉴명</th>
+      <td>
+        <input type="text" name="menuName"  required [(ngModel)]="menu.menuName" #menuName="ngModel"> 
+        <span *ngIf="!menuName.valid" style="color:red">{{msgMenuName}}</span>
+      </td>     
+    </tr> 
+    <tr>
+      <th>메뉴URL</th>
+      <td>
+        <input type="text" name="menuUrl" [(ngModel)]="menu.menuUrl" required #menuUrl="ngModel">  
+        <span *ngIf="!menuUrl.valid" style="color:red">{{msgMenuUrl}}</span>
+      </td>      
+    </tr>
+  </tbody>
+</table>
+</form>
+
+
+
+
+

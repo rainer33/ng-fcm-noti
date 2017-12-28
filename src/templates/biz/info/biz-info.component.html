@@ -1,0 +1,32 @@
+<div class="blog-post">
+  <div class="comm-left">
+    <h4>업무정보관리</h4>      
+  </div> 
+  <div class="comm-right">
+    <ul class="menu">
+      <li>
+        <p-dropdown [options]="conditions" [(ngModel)]= "searchField" [style]="{'width':'120px'}"></p-dropdown>        
+      </li>
+      <li><input type="text" [(ngModel)]="searchkey" style="width:97%"></li>
+      <li>
+        <button class="btn btn-info" (click)="onSearch()">조회</button>
+        <button class="btn btn-info" (click)="onReset()">초기화</button>
+        <button class="btn btn-info" (click)="onView()">등록</button>
+      </li>
+    </ul>      
+  </div> 
+</div>
+<button></button> <!-- 이것을 제거하면 아래 등록버튼 오류 발생 -->
+<div class="blog-post">  
+  <p-dataTable [value]="bizinfos" (onRowClick)="onRowClick($event)">
+    <p-column field="svcSeqno"        hidden="true"></p-column>    
+    <p-column field="svcName"         header="서비스명"></p-column>
+    <p-column field="svcCode"         header="서비스코드"></p-column>   
+    <p-column field="modDt"           header="수정일"></p-column>
+        <ng-template let-col let-car="rowData" let-ri="rowIndex" pTemplate="body">
+            <span>{{car[col.field] | date: 'dd-MM-y'}}</span>
+        </ng-template>   
+    <p-column field="modUserName"         header="수정자"></p-column>  
+  </p-dataTable>
+</div>
+

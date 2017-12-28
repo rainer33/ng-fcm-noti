@@ -1,0 +1,227 @@
+<p-tabView (onChange)="onTabChange($event)">
+  <p-tabPanel header="일보">
+      <div class="blog-post">
+          <div class="comm-left">
+            <h4>부서별PUSH발송보고서(일보)</h4>
+          </div>
+          <div class="comm-right" > 
+            <button class="btn btn-info" (click)="onSearch()">조회</button>
+            <button class="btn btn-info" (click)="onReset()">초기화</button>
+            <button class="btn btn-info" (click)="onList()">목록</button>
+          </div> 
+          <table class="input-group">
+            <colgroup>
+              <col style="width:  15%;">
+              <col style="width:  35%;">
+              <col style="width:  15%;">
+              <col style="width:  35%;">
+            </colgroup>
+            <tr>
+              <th>조직선택</th>  
+              <td><input type="text" [(ngModel)]="schDept" style="width:97%"  (click)="onSelectDept()"></td>
+              <th>일선택</th>  
+              <td align = "left">
+                <p-calendar [(ngModel)]="day" dateFormat="mm-dd-yy" [showIcon]="false"></p-calendar>
+              </td>
+            </tr>
+          </table>  
+          <p-dataTable [value]="statsDepts" (onRowClick)="onRowClick($event)">
+            <p-headerColumnGroup>
+              <p-row>
+                <p-column header="조직명" rowspan="2"></p-column>
+                <p-column header="요청" colspan="3"></p-column>
+                <p-column header="발송" colspan="3"></p-column>
+                <p-column header="접속" colspan="2"></p-column>
+              </p-row>
+              <p-row>
+                <p-column header="요청건수"></p-column>
+                <p-column header="가능건수"></p-column>
+                <p-column header="가능율"></p-column>
+                <p-column header="총발송"></p-column>
+                <p-column header="성공"></p-column>
+                <p-column header="실패"></p-column>
+                <p-column header="접속건수"></p-column>
+                <p-column header="접속율"></p-column>
+              </p-row>
+            </p-headerColumnGroup>
+            <p-column field="orgName"></p-column>
+            <p-column field="pushRequestCnt"></p-column>    
+            <p-column field="pushAvailCnt"></p-column>
+            <p-column field="pushAvailRate">
+                <ng-template let-year="rowData" pTemplate="body">
+                  {{availRate(year.pushRequestCnt,year.pushAvailCnt) |  percent:'3.0-2'}}
+                </ng-template>  
+            </p-column>   
+            <p-column field="sendTotalCnt">
+                <ng-template let-year="rowData" pTemplate="body">
+                  {{totalCnt(year.sendSuccessCnt,year.sendFailCnt)}}
+                </ng-template>
+            </p-column>
+            <p-column field="sendSuccessCnt"></p-column>
+            <p-column field="sendFailCnt"></p-column>
+            <p-column field="accessCnt"></p-column>   
+            <p-column field="accessRate">
+                <ng-template let-year="rowData" pTemplate="body">
+                  {{accessRate(year.accessCnt,year.sendSuccessCnt,year.sendFailCnt) |  percent:'3.0-2'}}
+                </ng-template> 
+            </p-column>
+          </p-dataTable>
+        </div>
+    <div class="blog-post">
+      <div class="comm-right" > 
+      </div>
+      <button></button>   
+    </div>
+  </p-tabPanel>
+  <p-tabPanel header="월보">
+      <div class="blog-post">
+          <div class="comm-left">
+            <h4>부서별PUSH발송보고서(월보)</h4>
+          </div>
+          <div class="comm-right" > 
+            <button class="btn btn-info" (click)="onSearch()">조회</button>
+            <button class="btn btn-info" (click)="onReset()">초기화</button>
+            <button class="btn btn-info" (click)="onList()">목록</button>
+          </div> 
+          <table class="input-group">
+            <colgroup>
+              <col style="width:  15%;">
+              <col style="width:  35%;">
+              <col style="width:  15%;">
+              <col style="width:  35%;">
+            </colgroup>
+            <tr>
+              <th>조직선택</th>  
+              <td><input type="text" [(ngModel)]="schDept" style="width:97%" (click)="onSelectDept()">
+                  <input type="hidden" [(ngModel)]="orgCode" ></td>
+              <th>월선택</th>  
+              <td align = "left">
+                <p-calendar [(ngModel)]="day" dateFormat="mm-yy" [showIcon]="false"></p-calendar>
+              </td>
+            </tr>
+          </table>  
+          <p-dataTable [value]="monthlyStatsDepts" (onRowClick)="onRowClick($event)">
+            <p-headerColumnGroup>
+              <p-row>
+                <p-column header="조직명" rowspan="2"></p-column>
+                <p-column header="요청" colspan="3"></p-column>
+                <p-column header="발송" colspan="3"></p-column>
+                <p-column header="접속" colspan="2"></p-column>
+              </p-row>
+              <p-row>
+                <p-column header="요청건수"></p-column>
+                <p-column header="가능건수"></p-column>
+                <p-column header="가능율"></p-column>
+                <p-column header="총발송"></p-column>
+                <p-column header="성공"></p-column>
+                <p-column header="실패"></p-column>
+                <p-column header="접속건수"></p-column>
+                <p-column header="접속율"></p-column>
+              </p-row>
+            </p-headerColumnGroup>
+            <p-column field="orgName"></p-column>
+            <p-column field="pushRequestCnt"></p-column>    
+            <p-column field="pushAvailCnt"></p-column>
+            <p-column field="pushAvailRate">
+                <ng-template let-year="rowData" pTemplate="body">
+                  {{availRate(year.pushRequestCnt,year.pushAvailCnt) |  percent:'3.0-2'}}
+                </ng-template>  
+            </p-column>   
+            <p-column field="sendTotalCnt">
+                <ng-template let-year="rowData" pTemplate="body">
+                  {{totalCnt(year.sendSuccessCnt,year.sendFailCnt)}}
+                </ng-template>
+            </p-column>
+            <p-column field="sendSuccessCnt"></p-column>
+            <p-column field="sendFailCnt"></p-column>
+            <p-column field="accessCnt"></p-column>   
+            <p-column field="accessRate">
+                <ng-template let-year="rowData" pTemplate="body">
+                  {{accessRate(year.accessCnt,year.sendSuccessCnt,year.sendFailCnt) |  percent:'3.0-2'}}
+                </ng-template> 
+            </p-column>
+          </p-dataTable>
+        </div>
+    <div class="blog-post">    
+      <div class="comm-right" > 
+      </div>  
+      <button></button>  
+    </div>
+  </p-tabPanel>  
+  <p-tabPanel header="년보">
+      <div class="blog-post">
+          <div class="comm-left">
+            <h4>부서별PUSH발송보고서(년보)</h4>
+          </div>
+          <div class="comm-right" > 
+            <button class="btn btn-info" (click)="onSearch()">조회</button>
+            <button class="btn btn-info" (click)="onReset()">초기화</button>
+            <button class="btn btn-info" (click)="onList()">목록</button>
+          </div> 
+          <table class="input-group">
+            <colgroup>
+              <col style="width:  15%;">
+              <col style="width:  35%;">
+              <col style="width:  15%;">
+              <col style="width:  35%;">
+            </colgroup>
+            <tr>
+              <th>조직선택</th>  
+              <td><input type="text" [(ngModel)]="schDept" style="width:97%" (click)="onSelectDept()"></td>
+              <th>년선택</th>  
+              <td align = "left">
+                <p-calendar [(ngModel)]="day" dateFormat="yy" [showIcon]="false"></p-calendar>
+              </td>
+            </tr>
+          </table>  
+          <p-dataTable [value]="yearStatsDepts" (onRowClick)="onRowClick($event)">
+            <p-headerColumnGroup>
+              <p-row>
+                <p-column header="조직명" rowspan="2"></p-column>
+                <p-column header="요청" colspan="3"></p-column>
+                <p-column header="발송" colspan="3"></p-column>
+                <p-column header="접속" colspan="2"></p-column>
+              </p-row>
+              <p-row>
+                <p-column header="요청건수"></p-column>
+                <p-column header="가능건수"></p-column>
+                <p-column header="가능율"></p-column>
+                <p-column header="총발송"></p-column>
+                <p-column header="성공"></p-column>
+                <p-column header="실패"></p-column>
+                <p-column header="접속건수"></p-column>
+                <p-column header="접속율"></p-column>
+              </p-row>
+            </p-headerColumnGroup>
+            <p-column field="orgName"></p-column>
+            <p-column field="pushRequestCnt"></p-column>    
+            <p-column field="pushAvailCnt"></p-column>
+            <p-column field="pushAvailRate">
+                <ng-template let-year="rowData" pTemplate="body">
+                  {{availRate(year.pushRequestCnt,year.pushAvailCnt) |  percent:'3.0-2'}}
+                </ng-template>  
+            </p-column>   
+            <p-column field="sendTotalCnt">
+                <ng-template let-year="rowData" pTemplate="body">
+                  {{totalCnt(year.sendSuccessCnt,year.sendFailCnt)}}
+                </ng-template>
+            </p-column>
+            <p-column field="sendSuccessCnt"></p-column>
+            <p-column field="sendFailCnt"></p-column>
+            <p-column field="accessCnt"></p-column>   
+            <p-column field="accessRate">
+                <ng-template let-year="rowData" pTemplate="body">
+                  {{accessRate(year.accessCnt,year.sendSuccessCnt,year.sendFailCnt) |  percent:'3.0-2'}}
+                </ng-template> 
+            </p-column>
+          </p-dataTable>
+        </div>
+    <div class="blog-post">    
+      <div class="comm-right" > 
+      </div>  
+      <button></button>  
+    </div>
+  </p-tabPanel>   
+  <p-dialog [(visible)]="display" [width]="500" [height]="400" modal="modal" header="조직선택" [closable]="false">
+      <org-modal (selectOrg)="onSetOrg($event)" (close)="onClose()"></org-modal>
+  </p-dialog> 

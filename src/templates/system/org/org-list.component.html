@@ -1,0 +1,59 @@
+<div class="medium-3 columns" data-sticky-container>
+  <div class="sticky" data-sticky data-anchor="content">
+    <h4><a (click) = "onFirstTree()">조직관리</a></h4>    
+    <tree-root #tree [nodes]="nodes" [options]="options">      
+    </tree-root>    
+  </div>
+</div>
+<div class="medium-8 columns">   
+  <div class="comm-left">      
+    <h4>조직정보</h4> 
+  </div> 
+  <div class="comm-right">      
+    <button class="btn btn-info" disabled *ngIf="!org.orgId">등록</button>
+    <button class="btn btn-info" (click)="onUpdate(tree)" *ngIf="org.orgId">수정</button> 
+    <button class="btn btn-info" (click)="onDelete(tree)" *ngIf="org.orgId">삭제</button>            
+  </div>  
+  <div class=""> 
+    <table class="input-group">
+      <colgroup>
+        <col style="width: 30%;">
+        <col style="width: 70%;">        
+      </colgroup>
+      <tbody>
+        <tr>         
+          <th style="text-align: center;">조직명</th>
+          <td >
+            <input type="text" name="orgName" [(ngModel)]="org.orgName" required>            
+          </td>        
+        </tr> 
+      </tbody>
+    </table>
+  </div>
+  <div *ngIf="org.orgParent == 0 || !org.orgId">   
+  <div class="comm-left">      
+    <h4>하위조직</h4> 
+  </div> 
+  <div class="comm-right">     
+    <button class="btn btn-info" (click)="onAdd()">등록</button>          
+  </div>
+  <button></button> <!-- 이것을 제거하면 아래 등록버튼 오류 발생 -->
+  <div class="blog-post">  
+    <p-dataTable [value]="orglist" >
+      <p-column field="orgId"   hidden="true"></p-column>  
+      <p-column field="orgName" header="조직명"></p-column>  
+     <!--  <p-column field="orgName" styleClass="dt-width-30"  header="조직명"></p-column>      
+      <p-column field="orgParent"  styleClass="dt-width-70"  header="부모조직코드"></p-column>  -->
+    </p-dataTable>
+  </div>
+  </div>
+  <div class="blog-post">    
+    <p-dialog [(visible)]="display" [width]="400" [height]="300" modal="modal" header="조직등록" [closable]="false">
+      <org-add-modal (addOrg)="onAddChild($event)" (close)="onClose()"></org-add-modal>
+    </p-dialog> 
+  </div>
+</div>
+    
+    
+    
+    

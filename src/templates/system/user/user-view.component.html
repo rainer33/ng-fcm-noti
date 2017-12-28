@@ -1,0 +1,108 @@
+<form  #userForm="ngForm">
+  <div class="comm-left">
+    <h4>관리자 정보</h4>
+  </div>
+  <div class="comm-right" > 
+    <button class="btn btn-info" (click)="onAdd()" *ngIf="!(user.userNo > 0)" [disabled]="!userForm.valid || !checkYN">등록</button> 
+    <button type="reset" class="btn btn-info">초기화</button>
+    <button class="btn btn-info" (click)="onUpdate()" *ngIf="user.userNo > 0" [disabled]="!userForm.valid">수정</button>
+    <button class="btn btn-info" (click)="onDelete()" *ngIf="user.userNo > 0">삭제</button>    
+    <button class="btn btn-info" (click)="onList()">목록</button>
+  </div>   
+  <div class="blog-post">
+    <table class="input-group">
+      <colgroup>
+        <col style="width: 15%;">
+        <col style="width: 35%;">
+        <col style="width: 15%;">
+        <col style="width: 30%;">
+        <col style="width: 5%;">
+      </colgroup>
+      <tbody>
+        <tr>
+          <th class="tacenter">{{hUser}} </th>
+          <td>
+            <input type="text" 
+              class="input AXInput " 
+              style="width: 70%;" 
+              name="userName"
+              #userName="ngModel" 
+              [(ngModel)] = "user.userName" 
+              required
+              maxlength="200"
+            >
+            <span [hidden]="userName.valid" style="color:red">{{msgUserName}}</span>
+          </td>
+          <th class="tacenter">{{hId}}	
+          </th>
+          <td>            
+            <input type="text" 
+              class="input AXInput " 
+              style="width: 81%;" 
+              name="userId"
+              #userId="ngModel" 
+              [(ngModel)] = "user.userId" 
+              required
+              maxlength="200"
+              [disabled]="user.userNo > 0"
+            >
+            <span [hidden]="userId.valid" style="color:red">{{msgUserId}}</span>
+          </td>
+          <td><button class="btn btn-info" (click)="onCheckId()" [disabled]="user.userNo > 0">{{hButtonDoubleCheck}}</button>
+          </td>
+        </tr>
+        <tr>
+          <th  class="tacenter"  >{{hPassword}}</th>
+          <td align="left">
+            <input type="password"
+              pPassword 
+              class="input AXInput " 
+              style="width: 70%;"
+              name="userPassword"
+              #userPassword="ngModel" 
+              [(ngModel)] = "user.userPassword" 
+              required 
+            >
+		   <span [hidden]="userPassword.valid || (userPassword.pristine)" style="color:red">
+		     {{msgUserPassword}}
+		   </span>            
+          </td>
+          <th class="tacenter">{{hPasswordCheck}}</th>
+          <td colspan = "2">
+            <input type="password" 
+              class="input AXInput " 
+              style="width: 60%;" 
+              name="passwordCheck"
+              #passwordCheck="ngModel" 
+              [(ngModel)] = "user.passwordCheck" 
+              required
+            >
+		   <span [hidden]="passwordCheck.valid || (passwordCheck.pristine)" style="color:red">
+		     {{msgNotMatch}}
+		   </span>             
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    </div>
+    <p-confirmDialog></p-confirmDialog>    
+</form>
+<p-tabView>
+<p-tabPanel header="접근권한">
+    <div class="blog-post">
+    <div class="comm-right" > 
+        <button class="btn btn-info" (click)="onAddRole()">등록</button> 
+        <button class="btn btn-info" (click)="onDeleteRole()">삭제</button>    
+    </div>  	    
+    <button></button> 
+	<p-dataTable [value]="rolelist">
+	    <p-column [style]="{'width':'38px'}" selectionMode="multiple"></p-column>
+	    <p-column field="" header="역할명"></p-column>
+	    <p-column field="" header="역할설명"></p-column>
+	</p-dataTable>
+</div> 
+</p-tabPanel>  
+</p-tabView>
+<p-dialog [(visible)]="display" [width]="650" [height]="400" modal="modal" header="접근권한등록" [closable]="false">
+  <role-modal (addMenu)="onAddChildMenu($event)" (close)="onClose()"></role-modal>
+</p-dialog> 
